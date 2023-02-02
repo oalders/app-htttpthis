@@ -4,10 +4,11 @@ package App::HTTPThis;
 
 use strict;
 use warnings;
+
 use Plack::App::DirectoryIndex;
-use Plack::Runner;
-use Getopt::Long;
-use Pod::Usage;
+use Plack::Runner ();
+use Getopt::Long qw( GetOptions );
+use Pod::Usage qw( pod2usage );
 
 =method new
 
