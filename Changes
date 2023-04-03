@@ -1,5 +1,8 @@
 # Changes for App-HTTPThis
 
+0.003 Thu Jul 29 10:59:43 UTC 2010
+     * Add CORS support
+
 0.002 Thu Jul 29 10:59:43 UTC 2010
      * Use Plack::Runner higher-level interface instead of
        Plack::Handler::Standalone directly

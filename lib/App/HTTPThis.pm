@@ -6,6 +6,8 @@ use strict;
 use warnings;
 
 use Plack::App::DirectoryIndex;
+use Plack::Builder qw( builder enable );
+use Plack::Middleware::CrossOrigin ();
 use Plack::Runner ();
 use Getopt::Long qw( GetOptions );
 use Pod::Usage qw( pod2usage );
@@ -56,7 +58,10 @@ sub run {
   $app_config->{dir_index} = 'index.html' if $self->{autoindex};
 
   eval {
-    $runner->run(Plack::App::DirectoryIndex->new( $app_config )->to_app);
+    my $app = Plack::App::DirectoryIndex->new( $app_config )->to_app;
+    my $builder = Plack::Builder->new;
+    $builder->add_middleware( 'CrossOrigin', origins => '*' );
+    $runner->run($builder->wrap($app));
   };
   if (my $e = $@) {
     die "FATAL: port $self->{port} is already in use, try another one\n"
@@ -94,6 +99,10 @@ sub _server_ready {
 }
 
 1;
+
+=head1 NAME
+
+App::HTTPThis
 
 =head1 SYNOPSIS
 
